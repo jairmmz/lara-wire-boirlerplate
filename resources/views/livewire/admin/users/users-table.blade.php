@@ -40,9 +40,9 @@
                             <flux:dropdown position="bottom" align="end" offset="-15">
                                 <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
                                 <flux:menu>
-                                    <flux:menu.item icon="document-text">View invoice</flux:menu.item>
-                                    <flux:menu.item icon="receipt-refund">Refund</flux:menu.item>
-                                    <flux:menu.item icon="archive-box" variant="danger">Archive</flux:menu.item>
+                                    <flux:menu.item icon="document-text">Ver</flux:menu.item>
+                                    <flux:menu.item icon="receipt-refund">Editar</flux:menu.item>
+                                    <flux:menu.item icon="archive-box" variant="danger">Eliminar</flux:menu.item>
                                 </flux:menu>
                             </flux:dropdown>
                         </flux:table.cell>
@@ -56,9 +56,9 @@
         <div class="flex items-center justify-center h-64 mt-4">
             <p class="text-gray-500 dark:text-gray-400">
                 @if ($search)
-                    <span>No se encontraron clientes para su búsqueda. Pruebe diferentes palabras clave.</span>
+                    <span>No se encontraron usurios para su búsqueda. Pruebe diferentes palabras clave.</span>
                 @else
-                    <span>No hay clientes disponibles. ¡Crea tu primer cliente!</span>
+                    <span>No hay usurios disponibles. ¡Crea tu primer usurio!</span>
                 @endif
             </p>
         </div>
