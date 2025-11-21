@@ -180,6 +180,11 @@
 
         @fluxScripts
 
+        {{-- Toast --}}
+        @persist('toast')
+            <flux:toast />
+        @endpersist
+
         {{-- Scripts --}}
         @stack('scripts')
     </body>

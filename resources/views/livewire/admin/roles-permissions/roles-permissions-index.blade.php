@@ -2,9 +2,9 @@
     <div class="flex items-center justify-between">
         <div>
             <flux:heading size="xl" level="1">
-                Usuarios
+                Roles y Permisos
             </flux:heading>
-            <flux:text class="mt-1 mb-4 text-base">Lista de Usuarios</flux:text>
+            <flux:text class="mt-1 mb-4 text-base">Lista de Roles y Permisos</flux:text>
         </div>
         <div class="flex gap-2">
             <flux:button icon="sheet" size="sm" variant="primary" color="green" wire:click="exportExcel">
@@ -13,7 +13,7 @@
             <flux:button icon="file-text" size="sm" variant="primary" color="red" wire:click="exportPdf">
                 Exportar PDF
             </flux:button>
-            <flux:button icon="plus" size="sm" variant="primary" href="{{ route('admin.users.create') }}" wire:navigate>
+            <flux:button icon="plus" size="sm" variant="primary" href="{{ route('admin.roles.create') }}">
                 Añadir
             </flux:button>
         </div>
@@ -21,7 +21,5 @@
 
     <flux:separator class="mb-4" variant="subtitle" />
 
-    <livewire:admin.users.users-table lazy />
-
-    <livewire:components.modal-confirmation />
+    <livewire:admin.roles-permissions.roles-permisssions-table lazy />
 </div>

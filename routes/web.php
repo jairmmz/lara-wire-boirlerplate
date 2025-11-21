@@ -2,8 +2,10 @@
 
 use App\Livewire\Admin\Dashboard\DashboardIndex;
 use App\Livewire\Admin\Reports\ReportUsers;
+use App\Livewire\Admin\RolesPermissions\RolePermisssionsCreate;
+use App\Livewire\Admin\RolesPermissions\RolePermisssionsEdit;
+use App\Livewire\Admin\RolesPermissions\RolesPermissionsIndex;
 use App\Livewire\Admin\Settings\SettingsIndex;
-use App\Livewire\Admin\Users\RolesIndex;
 use App\Livewire\Admin\Users\UserCreate;
 use App\Livewire\Admin\Users\UserEdit;
 use App\Livewire\Admin\Users\UsersIndex;
@@ -24,9 +26,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/users', UsersIndex::class)->name('admin.users.index');
     Route::get('/users/create', UserCreate::class)->name('admin.users.create');
     Route::get('/users/edit/{user}', UserEdit::class)->name('admin.users.edit');
-    Route::get('/roles', RolesIndex::class)->name('admin.roles.index');
 
-    // Reportes / analítica
+    // Roles y Permisos
+    Route::get('/roles', RolesPermissionsIndex::class)->name('admin.roles.index');
+    Route::get('/roles/create', RolePermisssionsCreate::class)->name('admin.roles.create');
+    Route::get('/roles/edit/{role}', RolePermisssionsEdit::class)->name('admin.roles.edit');
+
+    // Reportes
     Route::get('/reports/users', ReportUsers::class)->name('admin.reports.users');
 
     // Configuración

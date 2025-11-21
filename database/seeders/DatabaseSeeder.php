@@ -20,10 +20,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        User::factory(50)->create();
+        // User::factory(50)->create();
 
         $this->call([
             AdminSeeder::class,
+            RolesPermissionSeeder::class,
         ]);
     }
 }

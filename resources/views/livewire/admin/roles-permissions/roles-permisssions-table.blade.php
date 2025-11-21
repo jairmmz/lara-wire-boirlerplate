@@ -20,53 +20,41 @@
         </div>
     </div>
 
-    @if ($this->users->isNotEmpty())
+    @if ($this->roles->isNotEmpty())
         <flux:table>
             <flux:table.columns>
                 <flux:table.column sortable :sorted="$sortBy === 'id'" :direction="$sortDirection" wire:click="sort('id')">ID</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Nombre</flux:table.column>
-                <flux:table.column sortable :sorted="$sortBy === 'email'" :direction="$sortDirection" wire:click="sort('email')">Correo Electrónico</flux:table.column>
-                <flux:table.column>Roles</flux:table.column>
-                <flux:table.column>Estado</flux:table.column>
+                <flux:table.column>Permisos</flux:table.column>
                 <flux:table.column></flux:table.column>
             </flux:table.columns>
 
             <flux:table.rows>
-                @foreach ($this->users as $user)
+                @foreach ($this->roles as $role)
                     <flux:table.row>
-                        <flux:table.cell class="max-w-6 truncate">#{{ $user->id }}</flux:table.cell>
-                        <flux:table.cell class="max-w-6 truncate">{{ $user->name }}</flux:table.cell>
-                        <flux:table.cell class="max-w-6 truncate">{{ $user->email }}</flux:table.cell>
-                        <flux:table.cell class="max-w-6">
-                            @if ($user->roles)
-                                @foreach ($user->roles as $role)
-                                    <flux:badge class="mt-1" size="sm">{{ __($role->name) }}</flux:badge>
-                                @endforeach
-                            @endif
-                        </flux:table.cell>
+                        <flux:table.cell class="max-w-6 truncate">#{{ $role->id }}</flux:table.cell>
+                        <flux:table.cell class="max-w-6 truncate">{{ $role->name }}</flux:table.cell>
                         <flux:table.cell class="max-w-6 truncate">
-                            <flux:badge class="cursor-pointer" size="sm"
-                                color="{{ $user->is_active ? 'lime' : 'red' }}">
-                                <span class="text-shadow-accent">{{ $user->is_active ? 'Activo' : 'Inactivo' }}</span>
-                            </flux:badge>
+                            @foreach ($role->permissions as $permission)
+                                <flux:badge class="mt-1" size="sm">{{ $permission->name }}</flux:badge>
+                            @endforeach
                         </flux:table.cell>
                         <flux:table.cell>
-                            @if(!$user->isProtected())
-                                <flux:dropdown position="bottom" align="end" offset="-15">
-                                    <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
-                                    <flux:menu>
-                                        <flux:menu.item icon="receipt-refund" href="{{ route('admin.users.edit', $user->id) }}" wire:navigate>Editar</flux:menu.item>
-                                        <flux:menu.item icon="archive-box" variant="danger" wire:click="deleteUser({{ $user->id }})">Eliminar</flux:menu.item>
-                                    </flux:menu>
-                                </flux:dropdown>
-                            @endif
+                            <flux:dropdown position="bottom" align="end" offset="-15">
+                                <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
+                                <flux:menu>
+                                    <flux:menu.item icon="document-text">Ver</flux:menu.item>
+                                    <flux:menu.item icon="receipt-refund" wire:click="editRole({{ $role->id }})">Editar</flux:menu.item>
+                                    <flux:menu.item icon="archive-box" variant="danger" wire:click="deleteRole({{ $role->id }})">Eliminar</flux:menu.item>
+                                </flux:menu>
+                            </flux:dropdown>
                         </flux:table.cell>
                     </flux:table.row>
                 @endforeach
             </flux:table.rows>
         </flux:table>
 
-        <flux:pagination :paginator="$this->users" />
+        <flux:pagination :paginator="$this->roles" />
     @else
         <div class="flex items-center justify-center h-64 mt-4">
             <p class="text-gray-500 dark:text-gray-400">

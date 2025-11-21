@@ -3,8 +3,8 @@
 namespace App\Livewire\Admin\Users;
 
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -66,7 +66,7 @@ class UsersTable extends Component
     {
         User::find($id)?->delete();
 
-        session()->flash('success', 'Usuario eliminado correctamente');
+        Flux::toast('Usuario eliminado correctamente', variant: 'success');
     }
 
     #[Computed()]
@@ -75,6 +75,23 @@ class UsersTable extends Component
         return User::search($this->search)
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
+    }
+
+    public function toggleStatus(int $id): void
+    {
+        if (auth()->user()->hasRole('administrador') || auth()->user()->id === $id) {
+            Flux::toast('No tienes permisos para realizar esta acción.' , variant: 'success');
+
+            return;
+        }
+
+        abort_if(!auth()->user()->can('user.toggleStatus'), 403);
+
+        $user = User::findOrFail($id);
+        $user->is_active = !$user->is_active;
+        $user->save();
+
+        Flux::toast('Estado del usuario actualizado correctamente', variant: 'success');
     }
 
     public function render(): View
