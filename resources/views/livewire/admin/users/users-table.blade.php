@@ -34,17 +34,17 @@
             <flux:table.rows>
                 @foreach ($this->users as $user)
                     <flux:table.row>
-                        <flux:table.cell class="max-w-6 truncate">#{{ $user->id }}</flux:table.cell>
-                        <flux:table.cell class="max-w-6 truncate">{{ $user->name }}</flux:table.cell>
-                        <flux:table.cell class="max-w-6 truncate">{{ $user->email }}</flux:table.cell>
-                        <flux:table.cell class="max-w-6">
+                        <flux:table.cell>#{{ $user->id }}</flux:table.cell>
+                        <flux:table.cell>{{ $user->name }}</flux:table.cell>
+                        <flux:table.cell>{{ $user->email }}</flux:table.cell>
+                        <flux:table.cell>
                             @if ($user->roles)
                                 @foreach ($user->roles as $role)
                                     <flux:badge class="mt-1" size="sm">{{ __($role->name) }}</flux:badge>
                                 @endforeach
                             @endif
                         </flux:table.cell>
-                        <flux:table.cell class="max-w-6 truncate">
+                        <flux:table.cell>
                             <flux:badge class="cursor-pointer" size="sm"
                                 color="{{ $user->is_active ? 'lime' : 'red' }}">
                                 <span class="text-shadow-accent">{{ $user->is_active ? 'Activo' : 'Inactivo' }}</span>

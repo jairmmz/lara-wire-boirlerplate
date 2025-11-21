@@ -32,19 +32,20 @@
             <flux:table.rows>
                 @foreach ($this->roles as $role)
                     <flux:table.row>
-                        <flux:table.cell class="max-w-6 truncate">#{{ $role->id }}</flux:table.cell>
-                        <flux:table.cell class="max-w-6 truncate">{{ $role->name }}</flux:table.cell>
-                        <flux:table.cell class="max-w-6 truncate">
-                            @foreach ($role->permissions as $permission)
-                                <flux:badge class="mt-1" size="sm">{{ $permission->name }}</flux:badge>
-                            @endforeach
+                        <flux:table.cell>#{{ $role->id }}</flux:table.cell>
+                        <flux:table.cell>{{ $role->name }}</flux:table.cell>
+                        <flux:table.cell>
+                            <div class="max-w-5xl flex flex-wrap gap-1">
+                                @foreach ($role->permissions as $permission)
+                                    <flux:badge size="sm">{{ $permission->name }}</flux:badge>
+                                @endforeach
+                            </div>
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:dropdown position="bottom" align="end" offset="-15">
                                 <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
                                 <flux:menu>
-                                    <flux:menu.item icon="document-text">Ver</flux:menu.item>
-                                    <flux:menu.item icon="receipt-refund" wire:click="editRole({{ $role->id }})">Editar</flux:menu.item>
+                                    <flux:menu.item icon="receipt-refund" href="{{ route('admin.roles.edit', $role->id) }}">Editar</flux:menu.item>
                                     <flux:menu.item icon="archive-box" variant="danger" wire:click="deleteRole({{ $role->id }})">Eliminar</flux:menu.item>
                                 </flux:menu>
                             </flux:dropdown>

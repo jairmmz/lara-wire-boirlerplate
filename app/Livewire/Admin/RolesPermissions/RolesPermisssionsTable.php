@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Admin\RolesPermissions;
 
+use App\Enums\RolesType;
+use Flux\Flux;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
@@ -68,16 +70,23 @@ class RolesPermisssionsTable extends Component
     #[On('confirm-delete-role')]
     public function confirmDeleteRole(int $id): void
     {
-        Role::find($id)?->delete();
+        $role = Role::findOrFail($id);
 
-        session()->flash('success', 'rol eliminado correctamente');
+        if ($role->name === RolesType::SUPER_ADMINISTRADOR->value) {
+            abort(403, 'No tienes permisos para editar este rol');
+        }
+
+        $role->delete($id);
+
+        Flux::toast('Rol eliminado correctamente', variant: 'success');
     }
 
     #[Computed()]
     public function roles(): LengthAwarePaginator
     {
         return Role::with('permissions')
-            ->where('name', 'like', "%{$this->search}%")
+            ->where('name', '!=', RolesType::SUPER_ADMINISTRADOR->value)
+            ->when($this->search, fn($query) => $query->where('name', 'like', "%{$this->search}%"))
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
     }

@@ -22,6 +22,4 @@
     <flux:separator class="mb-4" variant="subtitle" />
 
     <livewire:admin.users.users-table lazy />
-
-    <livewire:components.modal-confirmation />
 </div>
