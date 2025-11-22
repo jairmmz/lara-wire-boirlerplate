@@ -46,7 +46,7 @@ class RolePermissionsForm extends Form
     {
         $this->validate();
 
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             $role = Role::create([
                 'name' => $this->name,
             ]);

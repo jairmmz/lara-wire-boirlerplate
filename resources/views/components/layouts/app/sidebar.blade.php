@@ -12,6 +12,7 @@
                     logo="https://fluxui.dev/img/demo/logo.png"
                     logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png"
                     name="Gestión de Contratos"
+                    wire:navigate
                 />
                 <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
             </flux:sidebar.header>
@@ -24,7 +25,7 @@
                     :current="request()->routeIs('admin.dashboard')"
                     wire:navigate
                 >
-                    Dashboard
+                    Panel
                 </flux:sidebar.item>
 
                 {{-- Usuarios --}}
@@ -32,7 +33,7 @@
                     <flux:sidebar.item
                         icon="shield-check"
                         :href="route('admin.users.index')"
-                        :current="request()->routeIs('admin.users.index')"
+                        :current="request()->routeIs('admin.users.*')"
                         wire:navigate
                     >
                         Usuarios
@@ -41,7 +42,7 @@
                     <flux:sidebar.item
                         icon="key-round"
                         :href="route('admin.roles.index')"
-                        :current="request()->routeIs('admin.roles.index')"
+                        :current="request()->routeIs('admin.roles.*')"
                         wire:navigate
                     >
                         Roles y permisos

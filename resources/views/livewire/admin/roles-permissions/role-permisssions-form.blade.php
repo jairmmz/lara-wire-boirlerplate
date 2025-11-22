@@ -58,7 +58,7 @@
                 isSelected(id) {
                     return this.selectedPermissions.includes(id);
                 },
-            }">
+            }" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @foreach ($groupedPermissions as $group => $permissions)
                     <div class="mb-4 border rounded-lg p-4">
                         <div class="flex items-center gap-2 mb-3">

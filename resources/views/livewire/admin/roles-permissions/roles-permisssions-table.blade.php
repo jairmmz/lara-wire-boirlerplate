@@ -24,7 +24,7 @@
         <flux:table>
             <flux:table.columns>
                 <flux:table.column sortable :sorted="$sortBy === 'id'" :direction="$sortDirection" wire:click="sort('id')">ID</flux:table.column>
-                <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Nombre</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Rol</flux:table.column>
                 <flux:table.column>Permisos</flux:table.column>
                 <flux:table.column></flux:table.column>
             </flux:table.columns>
@@ -45,7 +45,7 @@
                             <flux:dropdown position="bottom" align="end" offset="-15">
                                 <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
                                 <flux:menu>
-                                    <flux:menu.item icon="receipt-refund" href="{{ route('admin.roles.edit', $role->id) }}">Editar</flux:menu.item>
+                                    <flux:menu.item icon="receipt-refund" href="{{ route('admin.roles.edit', $role->id) }}" wire:navigate>Editar</flux:menu.item>
                                     <flux:menu.item icon="archive-box" variant="danger" wire:click="deleteRole({{ $role->id }})">Eliminar</flux:menu.item>
                                 </flux:menu>
                             </flux:dropdown>
