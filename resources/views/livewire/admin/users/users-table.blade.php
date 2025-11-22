@@ -38,11 +38,11 @@
                         <flux:table.cell>{{ $user->name }}</flux:table.cell>
                         <flux:table.cell>{{ $user->email }}</flux:table.cell>
                         <flux:table.cell>
-                            @if ($user->roles)
+                            <div class="max-w-5xl flex flex-wrap gap-1">
                                 @foreach ($user->roles as $role)
-                                    <flux:badge class="mt-1" size="sm">{{ __($role->name) }}</flux:badge>
+                                    <flux:badge size="sm">{{ $role->name }}</flux:badge>
                                 @endforeach
-                            @endif
+                            </div>
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:badge class="cursor-pointer" size="sm"

@@ -28,10 +28,10 @@
                     Panel
                 </flux:sidebar.item>
 
-                {{-- Usuarios --}}
-                <flux:sidebar.group expandable :expanded="request()->routeIs('admin.users.*', 'admin.roles.*')" icon="users" heading="Usuarios" class="grid gap-0.5">
+                {{-- Usuarios y Roles / Permisos --}}
+                <flux:sidebar.group expandable :expanded="request()->routeIs('admin.users.*', 'admin.roles.*')" icon="shield-check" heading="Seguridad" class="grid gap-0.5">
                     <flux:sidebar.item
-                        icon="shield-check"
+                        icon="users"
                         :href="route('admin.users.index')"
                         :current="request()->routeIs('admin.users.*')"
                         wire:navigate
@@ -64,7 +64,7 @@
 
             <flux:sidebar.spacer />
 
-            {{-- Zona baja: configuración / auditoría --}}
+            {{-- Configuración --}}
             <flux:sidebar.nav>
                 <flux:sidebar.item
                     icon="settings-2"
