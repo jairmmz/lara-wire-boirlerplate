@@ -77,23 +77,6 @@ class UsersTable extends Component
             ->paginate($this->perPage);
     }
 
-    public function toggleStatus(int $id): void
-    {
-        if (auth()->user()->hasRole('administrador') || auth()->user()->id === $id) {
-            Flux::toast('No tienes permisos para realizar esta acción.' , variant: 'success');
-
-            return;
-        }
-
-        abort_if(!auth()->user()->can('user.toggleStatus'), 403);
-
-        $user = User::findOrFail($id);
-        $user->is_active = !$user->is_active;
-        $user->save();
-
-        Flux::toast('Estado del usuario actualizado correctamente', variant: 'success');
-    }
-
     public function render(): View
     {
         return view('livewire.admin.users.users-table');

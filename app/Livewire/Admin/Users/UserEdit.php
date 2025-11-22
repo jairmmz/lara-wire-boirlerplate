@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Users;
 
+use App\Enums\RolesType;
 use App\Livewire\Forms\Admin\Users\UserForm;
 use App\Models\User;
 use Flux\Flux;
@@ -18,6 +19,8 @@ class UserEdit extends Component
 
     public function mount(?User $user = null)
     {
+        abort_if($user->hasRole(RolesType::SUPER_ADMINISTRADOR->value), 403, 'No tienes permisos para realizar esta acción');
+
         $this->form->setUser($user);
         $this->roles = Role::select('id', 'name')->where('name', '!=', 'super administrador')->get();
     }

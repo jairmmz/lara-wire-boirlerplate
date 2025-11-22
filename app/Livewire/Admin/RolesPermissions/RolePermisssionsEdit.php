@@ -16,9 +16,7 @@ class RolePermisssionsEdit extends Component
 
     public function mount(?Role $role = null)
     {
-        if ($role->name === RolesType::SUPER_ADMINISTRADOR->value) {
-            abort(403, 'No tienes permisos para editar este rol');
-        }
+        abort_if($role->name === RolesType::SUPER_ADMINISTRADOR->value, 403, 'No tienes permisos para realizar esta acción');
 
         $this->form->setRole($role);
     }

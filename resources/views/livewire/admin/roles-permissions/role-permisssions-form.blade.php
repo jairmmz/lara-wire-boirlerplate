@@ -71,7 +71,7 @@
                             <span class="font-semibold capitalize">{{ $group }}</span>
                         </div>
 
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-2 ml-6">
+                        <div class="grid grid-cols-2 gap-2 ml-6">
                             @foreach ($permissions as $permission)
                                 <label class="flex items-center gap-2 cursor-pointer">
                                     <input

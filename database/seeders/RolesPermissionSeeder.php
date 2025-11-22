@@ -26,7 +26,6 @@ class RolesPermissionSeeder extends Seeder
             'usuario.crear',
             'usuario.editar',
             'usuario.eliminar',
-            'usuario.cambiarEstado',
 
             'dashboard.ver',
         ];
