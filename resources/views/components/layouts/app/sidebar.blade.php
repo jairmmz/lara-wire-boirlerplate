@@ -28,7 +28,6 @@
                     Panel
                 </flux:sidebar.item>
 
-                {{-- Usuarios y Roles / Permisos --}}
                 <flux:sidebar.group expandable :expanded="request()->routeIs('admin.users.*', 'admin.roles.*')" icon="shield-check" heading="Seguridad" class="grid gap-0.5">
                     <flux:sidebar.item
                         icon="users"

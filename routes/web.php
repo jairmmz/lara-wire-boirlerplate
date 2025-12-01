@@ -18,27 +18,26 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::middleware(['auth', 'verified'])->group(function (): void {
+Route::middleware(['auth', 'verified', 'user_active'])->group(function (): void {
     // Dashboard
-    Route::get('/dashboard', DashboardIndex::class)->name('admin.dashboard');
+    Route::get('/dashboard', DashboardIndex::class)->name('admin.dashboard')->middleware('permission:dashboard.ver');
 
     // Usuarios
-    Route::get('/users', UsersIndex::class)->name('admin.users.index');
-    Route::get('/users/create', UserCreate::class)->name('admin.users.create');
-    Route::get('/users/edit/{user}', UserEdit::class)->name('admin.users.edit');
+    Route::get('/users', UsersIndex::class)->name('admin.users.index')->middleware('permission:usuario.ver');
+    Route::get('/users/create', UserCreate::class)->name('admin.users.create')->middleware('permission:usuario.crear');
+    Route::get('/users/edit/{user}', UserEdit::class)->name('admin.users.edit')->middleware('permission:usuario.editar');
 
     // Roles y Permisos
-    Route::get('/roles', RolesPermissionsIndex::class)->name('admin.roles.index');
-    Route::get('/roles/create', RolePermisssionsCreate::class)->name('admin.roles.create');
-    Route::get('/roles/edit/{role}', RolePermisssionsEdit::class)->name('admin.roles.edit');
+    Route::get('/roles', RolesPermissionsIndex::class)->name('admin.roles.index')->middleware('permission:rol.ver');
+    Route::get('/roles/create', RolePermisssionsCreate::class)->name('admin.roles.create')->middleware('permission:rol.crear');
+    Route::get('/roles/edit/{role}', RolePermisssionsEdit::class)->name('admin.roles.edit')->middleware('permission:rol.editar');
 
     // Reportes
-    Route::get('/reports/users', ReportUsers::class)->name('admin.reports.users');
+    Route::get('/reports/users', ReportUsers::class)->name('admin.reports.users')->middleware('permission:reportes.ver');
 
     // Configuración
-    Route::get('/settings/general', SettingsIndex::class)->name('admin.settings.general');
+    Route::get('/settings/general', SettingsIndex::class)->name('admin.settings.general')->middleware('permission:dashboard.ver');
 });
-
 
 Route::middleware(['auth'])->group(function (): void {
     Route::redirect('settings', 'settings/profile');

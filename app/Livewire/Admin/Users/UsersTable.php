@@ -64,12 +64,14 @@ class UsersTable extends Component
     #[On('confirm-delete-user')]
     public function confirmDeleteUser(int $id): void
     {
+        abort_if(!auth()->user()->can('usuario.eliminar'), 403, 'No tienes permiso para eliminar usuarios.');
+
         User::find($id)?->delete();
 
         Flux::toast('Usuario eliminado correctamente', variant: 'success');
     }
 
-    #[Computed()]
+    #[Computed]
     public function users(): LengthAwarePaginator
     {
         return User::search($this->search)
