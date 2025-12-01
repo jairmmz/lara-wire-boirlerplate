@@ -2,40 +2,31 @@
 
 namespace App\Livewire\Admin\Dashboard;
 
+use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DashboardIndex extends Component
 {
-    #[\Livewire\Attributes\Computed]
-    public function stats()
+    #[Computed]
+    public function totalUsers()
     {
-        return [
-            [
-                'title' => 'Total revenue',
-                'value' => '$38,393.12',
-                'trend' => '16.2%',
-                'trendUp' => true
-            ],
-            [
-                'title' => 'Total transactions',
-                'value' => '428',
-                'trend' => '12.4%',
-                'trendUp' => false
-            ],
-            [
-                'title' => 'Total customers',
-                'value' => '376',
-                'trend' => '12.6%',
-                'trendUp' => true
-            ],
-            [
-                'title' => 'Average order value',
-                'value' => '$87.12',
-                'trend' => '13.7%',
-                'trendUp' => true
-            ]
-        ];
+        return User::count();
+    }
+
+    #[Computed]
+    public function totalRoles()
+    {
+        return Role::count();
+    }
+
+    #[Computed]
+    public function totalPermissions()
+    {
+        return Permission::count();
     }
 
     #[Title('Panel')]
