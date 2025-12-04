@@ -17,7 +17,11 @@ class EnsureUserIsActive
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check() && !Auth::user()->is_active) {
-            return to_route('logout');
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')->with('status', 'Tu cuenta ha sido desactivada.');
         }
 
         return $next($request);
