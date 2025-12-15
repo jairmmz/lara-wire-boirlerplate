@@ -28,6 +28,9 @@ class RolesPermissionSeeder extends Seeder
             'usuario.eliminar',
 
             'dashboard.ver',
+
+            'reportes.usuarios',
+            'reportes.roles'
         ];
 
         foreach ($permissionsSuperAdmin as $permission) {

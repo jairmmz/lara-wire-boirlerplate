@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserPdfController;
 use App\Livewire\Admin\Dashboard\DashboardIndex;
 use App\Livewire\Admin\Reports\ReportUsers;
 use App\Livewire\Admin\RolesPermissions\RolePermisssionsCreate;
@@ -23,9 +24,12 @@ Route::middleware(['auth', 'verified', 'user_active'])->group(function (): void 
     Route::get('/dashboard', DashboardIndex::class)->name('admin.dashboard')->middleware('permission:dashboard.ver');
 
     // Usuarios
-    Route::get('/users', UsersIndex::class)->name('admin.users.index')->middleware('permission:usuario.ver');
-    Route::get('/users/create', UserCreate::class)->name('admin.users.create')->middleware('permission:usuario.crear');
-    Route::get('/users/edit/{user}', UserEdit::class)->name('admin.users.edit')->middleware('permission:usuario.editar');
+    Route::prefix('users')->group(function () {
+        Route::get('/', UsersIndex::class)->name('admin.users.index')->middleware('permission:usuario.ver');
+        Route::get('/create', UserCreate::class)->name('admin.users.create')->middleware('permission:usuario.crear');
+        Route::get('/edit/{user}', UserEdit::class)->name('admin.users.edit')->middleware('permission:usuario.editar');
+        Route::get('reports/pdf', UserPdfController::class)->name('reports.users.pdf');
+    });
 
     // Roles y Permisos
     Route::get('/roles', RolesPermissionsIndex::class)->name('admin.roles.index')->middleware('permission:rol.ver');
@@ -50,7 +54,7 @@ Route::middleware(['auth'])->group(function (): void {
         ->middleware(
             when(
                 Features::canManageTwoFactorAuthentication()
-                && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
+                    && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
                 ['password.confirm'],
                 [],
             ),
