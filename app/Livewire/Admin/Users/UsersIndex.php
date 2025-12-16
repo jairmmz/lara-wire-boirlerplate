@@ -8,6 +8,11 @@ use Livewire\Component;
 
 class UsersIndex extends Component
 {
+    public function exportExcel()
+    {
+        return $this->redirectRoute('reports.users.excel');
+    }
+
     public function exportPdf()
     {
         return $this->redirectRoute('reports.users.pdf');

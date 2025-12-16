@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserPdfController;
+use App\Http\Controllers\UserExportController;
 use App\Livewire\Admin\Dashboard\DashboardIndex;
 use App\Livewire\Admin\Reports\ReportUsers;
 use App\Livewire\Admin\RolesPermissions\RolePermisssionsCreate;
@@ -28,7 +28,8 @@ Route::middleware(['auth', 'verified', 'user_active'])->group(function (): void 
         Route::get('/', UsersIndex::class)->name('admin.users.index')->middleware('permission:usuario.ver');
         Route::get('/create', UserCreate::class)->name('admin.users.create')->middleware('permission:usuario.crear');
         Route::get('/edit/{user}', UserEdit::class)->name('admin.users.edit')->middleware('permission:usuario.editar');
-        Route::get('reports/pdf', UserPdfController::class)->name('reports.users.pdf');
+        Route::get('reports/pdf', [UserExportController::class, 'pdf'])->name('reports.users.pdf');
+        Route::get('reports/excel', [UserExportController::class, 'excel'])->name('reports.users.excel');
     });
 
     // Roles y Permisos
