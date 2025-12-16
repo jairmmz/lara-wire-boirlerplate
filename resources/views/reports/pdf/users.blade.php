@@ -28,11 +28,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($users as $index => $users)
+            @foreach($users as $index => $user)
                 <tr>
                     <td>{{ $index + 1}}</td>
-                    <td>{{ $users->name }}</td>
-                    <td>{{ $users->email }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
                 </tr>
             @endforeach
         </tbody>
